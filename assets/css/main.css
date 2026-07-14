@@ -122,7 +122,9 @@ footer,
 [data-testid="stToolbar"],
 [data-testid="stDecoration"],
 [data-testid="stStatusWidget"],
-.viewerBadge_container__1QSob {
+.viewerBadge_container__1QSob,
+[data-testid="collapsedControl"],
+[data-testid="stSidebarCollapseButton"] {
   display: none !important;
 }
 
