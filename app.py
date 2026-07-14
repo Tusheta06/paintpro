@@ -591,14 +591,18 @@ def main():
             count = fetch_scalar("SELECT COUNT(*) FROM users")
             if count == 0:
                 raise Exception("Users table is empty!")
-        except:
+        except Exception as startup_err:
             # Table doesn't exist or is empty, run auto-migration!
-            with st.spinner("Setting up cloud database tables for the first time..."):
-                from database.migrations import run_migration
-                run_migration()
-                st.success("✅ Cloud Database Initialized Successfully! Reloading...")
-                import time; time.sleep(2)
-                st.rerun()
+            try:
+                with st.spinner("Setting up cloud database tables for the first time..."):
+                    from database.migrations import run_migration
+                    run_migration()
+                    st.success("✅ Cloud Database Initialized Successfully! Reloading...")
+                    import time; time.sleep(2)
+                    st.rerun()
+            except Exception as migration_err:
+                st.error(f"**Migration Failed:** {str(migration_err)}")
+                st.stop()
 
     # AUTH ROUTING
     if not is_authenticated():
