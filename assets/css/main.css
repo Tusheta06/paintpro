@@ -144,6 +144,11 @@ footer,
   background: var(--bg-secondary) !important;
   border-right: 1px solid var(--border) !important;
   min-width: 250px !important;
+  max-width: 250px !important;
+  display: block !important;
+  visibility: visible !important;
+  transform: none !important;
+  position: relative !important;
 }
 
 [data-testid="stSidebar"] > div:first-child {
