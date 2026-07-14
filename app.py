@@ -592,8 +592,8 @@ def main():
         except:
             # Table doesn't exist, run auto-migration!
             with st.spinner("Setting up cloud database tables for the first time..."):
-                from database.migrations import run_migrations
-                run_migrations()
+                from database.migrations import run_migration
+                run_migration()
                 st.success("✅ Cloud Database Initialized Successfully! Reloading...")
                 import time; time.sleep(2)
                 st.rerun()
