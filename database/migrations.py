@@ -171,8 +171,8 @@ def execute_sql_file(conn, filepath: Path, label: str):
             if exc.errno in (1050, 1060, 1061, 1062, 1304, 1394):
                 pass  # Table/column/index/trigger already exists
             else:
-                print(f"  ⚠️  SQL warning [{exc.errno}]: {exc.msg}")
-                print(f"      Statement preview: {stmt[:120]}…")
+                conn.rollback()
+                raise Exception(f"Failed to execute schema block:\n\n{stmt[:200]}...\n\nError {exc.errno}: {exc.msg}")
 
     cursor.close()
     print(f"  ✅ {label} - {executed} statement(s) executed.")

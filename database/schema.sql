@@ -10,14 +10,7 @@
 SET FOREIGN_KEY_CHECKS = 0;
 SET SQL_MODE = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
--- ============================================================
--- Create and select the database
--- ============================================================
-CREATE DATABASE IF NOT EXISTS paintpro_db
-    CHARACTER SET utf8mb4
-    COLLATE utf8mb4_0900_ai_ci;
 
-USE paintpro_db;
 
 
 -- ============================================================
