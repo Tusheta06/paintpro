@@ -614,7 +614,7 @@ def main():
     if not is_authenticated():
         # Hide sidebar on auth pages
         st.markdown(
-            "<style>[data-testid='stSidebar']{display:none!important;}</style>",
+            "<style>[data-testid='stSidebar']{display:none!important;} [data-testid='collapsedControl']{display:none!important;}</style>",
             unsafe_allow_html=True,
         )
         view = st.session_state.get("auth_view", "login")
@@ -629,6 +629,11 @@ def main():
         return
 
     # AUTHENTICATED - render native sidebar + page
+    # Explicitly clear the hidden sidebar CSS just in case it persisted from login
+    st.markdown(
+        "<style>/* Authenticated: Sidebar visible */</style>",
+        unsafe_allow_html=True,
+    )
     render_sidebar()
     current_page = st.session_state.get("current_page", "dashboard")
     dispatch_page(current_page)
