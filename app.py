@@ -85,9 +85,8 @@ _init_session()
 # ─── DB Health Check ──────────────────────────────────────────────────────────
 
 @st.cache_data(ttl=30, show_spinner=False)
-def _db_ok() -> bool:
-    ok, _ = test_connection()
-    return ok
+def _db_ok() -> tuple[bool, str]:
+    return test_connection()
 
 # ─── Navigation Map ───────────────────────────────────────────────────────────
 
@@ -575,17 +574,29 @@ def dispatch_page(page: str):
 def main():
     """Top-level router - auth check → sidebar → page dispatch."""
 
-    # DB connectivity warning
-    if not _db_ok():
+    # DB connectivity check
+    db_status, db_msg = _db_ok()
+    if not db_status:
         st.error(
-            "⚠️ **Database not connected.** "
-            "Please ensure MySQL is running and check your `.env` configuration."
-        )
-        st.info(
-            "Run the migration script first:\n"
-            "```\npython database/migrations.py\n```"
+            "⚠️ **Database not connected.**\n\n"
+            f"**Error Details:** `{db_msg}`\n\n"
+            "Please ensure your Streamlit Secrets (or `.env`) are configured correctly."
         )
         st.stop()
+    else:
+        # DB connected! Let's make sure tables exist (Auto-Migration for Cloud)
+        from database.connection import fetch_scalar
+        try:
+            # Check if users table exists
+            fetch_scalar("SELECT 1 FROM users LIMIT 1")
+        except:
+            # Table doesn't exist, run auto-migration!
+            with st.spinner("Setting up cloud database tables for the first time..."):
+                from database.migrations import run_migrations
+                run_migrations()
+                st.success("✅ Cloud Database Initialized Successfully! Reloading...")
+                import time; time.sleep(2)
+                st.rerun()
 
     # AUTH ROUTING
     if not is_authenticated():

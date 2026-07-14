@@ -52,6 +52,7 @@ def get_connection() -> mysql.connector.MySQLConnection:
         autocommit=False,
         connection_timeout=db_config.CONNECTION_TIMEOUT,
         use_unicode=True,
+        ssl_verify_cert=False,  # <--- CRITICAL FOR AIVEN CLOUD
     )
 
 
