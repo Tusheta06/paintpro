@@ -37,6 +37,8 @@ assets/images/*.jpg
 assets/images/*.jpeg
 assets/images/*.png
 assets/images/*.webp
+# But always include the logo!
+!assets/images/logo.png
 reports/*.pdf
 reports/*.xlsx
 reports/*.csv
