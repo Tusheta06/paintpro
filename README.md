@@ -20,6 +20,7 @@ Built on Python, Streamlit, and MySQL, PaintPro combines state-of-the-art UI/UX 
 
 ## 🛠️ Architecture
 
+```
 painting/
 ├── app.py                      # Main application entry point & router
 ├── requirements.txt            # Python dependencies
