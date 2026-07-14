@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.Python
+env/
+venv/
+ENV/
+.venv/
+
+# Environment
+.env
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Database
+*.sql.bak
+
+# Uploads & Generated Files
+assets/images/*.jpg
+assets/images/*.jpeg
+assets/images/*.png
+assets/images/*.webp
+reports/*.pdf
+reports/*.xlsx
+reports/*.csv
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+*.tmp
