@@ -612,6 +612,11 @@ def main():
 
     # AUTH ROUTING
     if not is_authenticated():
+        # Hide sidebar on auth pages
+        st.markdown(
+            "<style>[data-testid='stSidebar']{display:none!important;}</style>",
+            unsafe_allow_html=True,
+        )
         view = st.session_state.get("auth_view", "login")
         if view == "login":
             render_login_page()
