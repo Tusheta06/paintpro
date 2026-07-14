@@ -7,8 +7,6 @@
 --           sample suppliers, customers, products, and settings
 -- ============================================================
 
-USE paintpro_db;
-
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ============================================================

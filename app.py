@@ -584,13 +584,15 @@ def main():
         )
         st.stop()
     else:
-        # DB connected! Let's make sure tables exist (Auto-Migration for Cloud)
+        # DB connected! Let's make sure tables exist and are seeded (Auto-Migration for Cloud)
         from database.connection import fetch_scalar
         try:
-            # Check if users table exists
-            fetch_scalar("SELECT 1 FROM users LIMIT 1")
+            # Check if users table actually has data
+            count = fetch_scalar("SELECT COUNT(*) FROM users")
+            if count == 0:
+                raise Exception("Users table is empty!")
         except:
-            # Table doesn't exist, run auto-migration!
+            # Table doesn't exist or is empty, run auto-migration!
             with st.spinner("Setting up cloud database tables for the first time..."):
                 from database.migrations import run_migration
                 run_migration()
