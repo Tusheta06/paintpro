@@ -586,17 +586,23 @@ def main():
     else:
         # DB connected! Let's make sure tables exist and are seeded (Auto-Migration for Cloud)
         from database.connection import fetch_scalar
+        needs_schema = True
         try:
             # Check if users table actually has data
             count = fetch_scalar("SELECT COUNT(*) FROM users")
             if count == 0:
-                raise Exception("Users table is empty!")
+                needs_schema = False
+                raise Exception("SeedDataMissing")
         except Exception as startup_err:
-            # Table doesn't exist or is empty, run auto-migration!
+            # If the error is not our custom one, the table doesn't exist at all.
+            if "SeedDataMissing" not in str(startup_err):
+                needs_schema = True
+
             try:
                 with st.spinner("Setting up cloud database tables for the first time..."):
                     from database.migrations import run_migration
-                    run_migration()
+                    # If tables exist but are empty, ONLY run the seeder!
+                    run_migration(seed_only=not needs_schema)
                     st.success("✅ Cloud Database Initialized Successfully! Reloading...")
                     import time; time.sleep(2)
                     st.rerun()

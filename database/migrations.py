@@ -168,7 +168,7 @@ def execute_sql_file(conn, filepath: Path, label: str):
             executed += 1
         except MySQLError as exc:
             # Ignore 'already exists' errors gracefully
-            if exc.errno in (1050, 1060, 1061, 1062, 1304, 1394):
+            if exc.errno in (1050, 1060, 1061, 1062, 1304, 1359, 1394):
                 pass  # Table/column/index/trigger already exists
             else:
                 conn.rollback()
