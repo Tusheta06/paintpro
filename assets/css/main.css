@@ -793,21 +793,55 @@ footer,
 .stagger-children > *:nth-child(4) { animation-delay: 0.20s; }
 
 /* ═══════════════════════════════════════════════════════════
-   RESPONSIVE
+   RESPONSIVE DESIGN (Phone, Tablet, Desktop, TV)
    ═══════════════════════════════════════════════════════════ */
-@media (max-width: 900px) {
-  .auth-brand-panel { display: none; }
 
+/* 1. Mobile Phones (up to 640px) */
+@media screen and (max-width: 640px) {
   [data-testid="stAppViewContainer"] > .main > .block-container {
-    padding: 1rem 1rem 2rem !important;
+    padding: 1rem 0.5rem 2rem !important; /* Tighter padding for phones */
   }
-
-  .kpi-card-value { font-size: 1.55rem; }
+  .section-title { font-size: 1.1rem; }
+  .kpi-card { padding: 12px 14px; }
+  .kpi-card-value { font-size: 1.35rem; }
+  .auth-brand-panel { display: none; }
 }
 
-@media (max-width: 640px) {
-  .section-title { font-size: 1.1rem; }
+/* 2. Tablets (641px to 1024px) */
+@media screen and (min-width: 641px) and (max-width: 1024px) {
+  [data-testid="stAppViewContainer"] > .main > .block-container {
+    padding: 1.5rem 1.5rem 3rem !important;
+  }
+  .section-title { font-size: 1.3rem; }
   .kpi-card { padding: 16px 18px; }
+  .kpi-card-value { font-size: 1.55rem; }
+  .auth-brand-panel { display: none; }
+}
+
+/* 3. Desktops / Laptops (1025px to 1440px) - Base Default */
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+  [data-testid="stAppViewContainer"] > .main > .block-container {
+    max-width: 1200px !important;
+  }
+}
+
+/* 4. Large Screens / TVs (1441px and up) */
+@media screen and (min-width: 1441px) {
+  [data-testid="stAppViewContainer"] > .main > .block-container {
+    max-width: 1600px !important;
+    padding: 3rem 4rem !important;
+  }
+  
+  .section-title { font-size: 1.8rem; }
+  .kpi-card { padding: 28px 32px; }
+  .kpi-card-value { font-size: 2.2rem; }
+  .kpi-card-label { font-size: 1.1rem; }
+  
+  /* Scale up tabs for TV readability */
+  [data-testid="stTabs"] [role="tab"] {
+    font-size: 1.1rem !important;
+    padding: 14px 24px !important;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
