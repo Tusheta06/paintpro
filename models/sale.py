@@ -86,7 +86,8 @@ class SaleModel:
         """
         conn, cursor = None, None
         try:
-            conn, cursor = get_connection(dictionary=True)
+            conn = get_connection()
+            cursor = conn.cursor(dictionary=True)
             conn.start_transaction()
             
             # 1. Check stock availability before inserting
