@@ -4,7 +4,6 @@ Welcome to **PaintPro IMS**, a premium, commercial-grade Inventory Management Sy
 
 Built on Python, Streamlit, and MySQL, PaintPro combines state-of-the-art UI/UX (featuring glassmorphism, dynamic animations, and dark mode) with robust business logic.
 
----
 
 ## ✨ Features
 
@@ -18,11 +17,9 @@ Built on Python, Streamlit, and MySQL, PaintPro combines state-of-the-art UI/UX 
 - **📥 Export System:** 1-Click secure CSV database backups for accounting synchronization (QuickBooks/Tally).
 - **📊 Business Analytics:** Visual dashboard utilizing Streamlit charts for Revenue, COGS, Gross Margins, and Stock Valuations.
 
----
 
 ## 🛠️ Architecture
 
-```
 painting/
 ├── app.py                      # Main application entry point & router
 ├── requirements.txt            # Python dependencies
@@ -58,7 +55,6 @@ painting/
     └── test_core.py            # Pytest automated test suite
 ```
 
----
 
 ## 🚀 Installation & Deployment
 
@@ -96,7 +92,6 @@ streamlit run app.py
 ```
 *The app will automatically open in your default browser at `http://localhost:8501`.*
 
----
 
 ## 🧪 Testing
 
@@ -105,12 +100,10 @@ To verify the core business logic (hashing, validators, utils), simply run the t
 pytest tests/test_core.py -v
 ```
 
----
 
 ## 🔒 Security Notes
 - Database transactions for Sales and Purchases are atomic (all-or-nothing) to prevent fragmented data.
 - Passwords are strictly hashed with `bcrypt` (Cost Factor: 12).
 - SQL Injection protection is inherently handled via parameterized queries in `mysql.connector`. 
 
----
-*Built with ❤️ by Antigravity AI.*
+
