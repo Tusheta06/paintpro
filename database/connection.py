@@ -29,19 +29,21 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from config.settings import db_config
 
 
+import streamlit as st
+from mysql.connector import pooling
+
 # ─── Connection Factory ────────────────────────────────────────────────────────
 
-def get_connection() -> mysql.connector.MySQLConnection:
+@st.cache_resource
+def get_connection_pool():
     """
-    Open and return a raw MySQL connection.
-
-    The caller is responsible for closing it (use with a try/finally block
-    or the context manager pattern).
-
-    Raises:
-        mysql.connector.Error if the connection cannot be established.
+    Create a persistent connection pool cached by Streamlit across all users.
+    This prevents opening a new internet/TLS connection for every single query!
     """
-    return mysql.connector.connect(
+    return pooling.MySQLConnectionPool(
+        pool_name=db_config.POOL_NAME,
+        pool_size=db_config.POOL_SIZE,
+        pool_reset_session=True,
         host=db_config.HOST,
         port=db_config.PORT,
         database=db_config.NAME,
@@ -52,9 +54,15 @@ def get_connection() -> mysql.connector.MySQLConnection:
         autocommit=False,
         connection_timeout=db_config.CONNECTION_TIMEOUT,
         use_unicode=True,
-        ssl_verify_cert=False,  # <--- CRITICAL FOR AIVEN CLOUD
+        ssl_verify_cert=False,
     )
 
+def get_connection():
+    """
+    Get a raw MySQL connection from the persistent pool.
+    The caller is responsible for closing it (which returns it to the pool).
+    """
+    return get_connection_pool().get_connection()
 
 # ─── Query Helpers ─────────────────────────────────────────────────────────────
 
