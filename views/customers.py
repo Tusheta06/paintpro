@@ -54,7 +54,7 @@ def _customer_form_dialog(customer_id: int = None):
             email = st.text_input("Email Address", value=cust.get("email", ""))
             
         gst_number = st.text_input("GSTIN (Required for B2B)", value=cust.get("gst_number", ""))
-        address = st.text_area("Full Address / Billing Address", value=cust.get("address", ""))
+        address = st.text_area("Full Address / Billing Address", value=cust.get("address_line1", ""))
 
         submitted = st.form_submit_button("Save Customer", type="primary", use_container_width=True)
         
@@ -81,7 +81,7 @@ def _customer_form_dialog(customer_id: int = None):
                     "email": email,
                     "phone": phone,
                     "gst_number": gst_number.upper() if gst_number else None,
-                    "address": address,
+                    "address_line1": address,
                 }
                 
                 uid = get_current_user()["id"]
@@ -171,7 +171,7 @@ def render():
 {contact_html}
 </td>
 <td style="font-size:0.85rem; color:var(--text-muted);">
-{c.get('address') or '-'}
+{c.get('address_line1') or '-'}
 {gst_html}
 </td>
 <td>

@@ -7,7 +7,6 @@ Data access object for managing sales and their line items.
 Includes transaction management for atomic operations.
 """
 
-from tkinter import LEFT
 
 from database.connection import execute_query, execute_one, execute_write, get_connection
 from utils.auth import log_activity

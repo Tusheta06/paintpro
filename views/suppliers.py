@@ -57,7 +57,7 @@ def _supplier_form_dialog(supplier_id: int = None):
         with c2:
             email = st.text_input("Email Address", value=sup.get("email", ""))
             
-        address = st.text_area("Full Address", value=sup.get("address", ""))
+        address = st.text_area("Full Address", value=sup.get("address_line1", ""))
 
         submitted = st.form_submit_button("Save Supplier", type="primary", use_container_width=True)
         
@@ -82,7 +82,7 @@ def _supplier_form_dialog(supplier_id: int = None):
                     "email": email,
                     "phone": phone,
                     "gst_number": gst_number.upper() if gst_number else None,
-                    "address": address,
+                    "address_line1": address,
                 }
                 
                 uid = get_current_user()["id"]
@@ -165,7 +165,7 @@ def render():
 {contact_html}
 </td>
 <td style="font-size:0.85rem; color:var(--text-muted);">
-{s['address'] or '-'}
+{s.get('address_line1') or '-'}
 </td>
 <td>
 <span style="color:var(--text-muted);font-size:0.75rem;">See actions below</span>
