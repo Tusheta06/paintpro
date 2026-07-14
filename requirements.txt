@@ -8,3 +8,4 @@ python-barcode>=0.15.1
 qrcode>=7.4.2
 Pillow>=10.0.0
 pytest>=7.4.0
+plotly>=5.15.0
