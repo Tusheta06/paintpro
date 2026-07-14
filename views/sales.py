@@ -305,16 +305,20 @@ def render_new_sale_form():
                 elif grand_total < 0:
                     st.error("Grand total cannot be negative.")
                 else:
+                    from datetime import datetime as _dt
+                    inv_num = f"INV-{_dt.now().strftime('%Y%m%d%H%M%S')}"
                     header = {
+                        "invoice_number": inv_num,
                         "customer_id": customers[sel_cust],
                         "invoice_date": inv_date,
                         "due_date": due_date,
-                        "status": "completed",
-                        "payment_status": "paid", # Assume paid at POS by default
+                        "status": "confirmed",
+                        "payment_status": "paid",
                         "subtotal": subtotal,
-                        "tax_total": tax_total,
+                        "gst_amount": tax_total,
                         "discount_amount": global_discount,
-                        "grand_total": grand_total
+                        "grand_total": grand_total,
+                        "paid_amount": grand_total,
                     }
                     
                     ok, msg = SaleModel.create_with_items(header, st.session_state["sale_cart"], get_current_user()['id'])

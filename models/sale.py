@@ -116,10 +116,10 @@ class SaleModel:
             for item in items:
                 cursor.execute(
                     """
-                    INSERT INTO sale_items (sale_id, product_id, quantity, unit_price, discount, total_price)
-                    VALUES (%s, %s, %s, %s, %s, %s)
+                    INSERT INTO sale_items (sale_id, product_id, product_name, quantity, unit_price, discount_amount, line_total)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)
                     """,
-                    (sale_id, item['product_id'], item['quantity'], item['unit_price'], item.get('discount', 0), item['total_price'])
+                    (sale_id, item['product_id'], item.get('product_name', ''), item['quantity'], item['unit_price'], item.get('discount', 0), item['total_price'])
                 )
                 
             conn.commit()
